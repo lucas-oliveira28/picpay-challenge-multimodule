@@ -1,7 +1,7 @@
 package io.github.lucasoliveira28.dto.transaction;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.github.lucasoliveira28.dto.user.UserDTO;
+import io.github.lucasoliveira28.dto.user.UserForTransactionDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,15 +17,15 @@ import java.util.UUID;
 public class TransactionResponseDTO {
 
     @JsonProperty("id")
-    UUID id;
+    private UUID id;
 
     @JsonProperty("value")
-    BigDecimal amount;
+    private BigDecimal amount;
 
     @JsonProperty("payer")
-    UserDTO payer;
+    private UserForTransactionDTO payer;
 
     @JsonProperty("payee")
-    UserDTO payee;
+    private UserForTransactionDTO payee;
 
 }

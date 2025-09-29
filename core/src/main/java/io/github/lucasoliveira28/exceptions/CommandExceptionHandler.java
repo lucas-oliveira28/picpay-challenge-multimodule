@@ -15,7 +15,7 @@ public class CommandExceptionHandler {
 
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<StandardError> handleUserNotFoundException(UserNotFoundException e, HttpServletRequest request){
-        String error = "Requisição não encontrada";
+        String error = "Erro na requisição";
         HttpStatus status = HttpStatus.NOT_FOUND;
         StandardError err = new StandardError(Instant.now(), status.value(),
                 error, e.getMessage(), request.getRequestURI());
@@ -35,8 +35,26 @@ public class CommandExceptionHandler {
 
     @ExceptionHandler(UserBadRequestException.class)
     public ResponseEntity<StandardError> handleUserBadRequestException(UserBadRequestException e, HttpServletRequest request){
-        String error = "Requisição não encontrada";
+        String error = "Requisição inválida";
         HttpStatus status = HttpStatus.BAD_REQUEST;
+        StandardError err = new StandardError(Instant.now(), status.value(),
+                error, e.getMessage(), request.getRequestURI());
+        return ResponseEntity.status(status).body(err);
+    }
+
+    @ExceptionHandler(TransactionBadRequestException.class)
+    public ResponseEntity<StandardError> handleTransactionBadRequestException(TransactionBadRequestException e, HttpServletRequest request){
+        String error = "Requisição inválida";
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+        StandardError err = new StandardError(Instant.now(), status.value(),
+                error, e.getMessage(), request.getRequestURI());
+        return ResponseEntity.status(status).body(err);
+    }
+
+    @ExceptionHandler(TransactionNotAuthorizedException.class)
+    public ResponseEntity<StandardError> handleTransactionNotAuthorizedException(TransactionNotAuthorizedException e, HttpServletRequest request){
+        String error = "Erro na requisição";
+        HttpStatus status = HttpStatus.UNAUTHORIZED;
         StandardError err = new StandardError(Instant.now(), status.value(),
                 error, e.getMessage(), request.getRequestURI());
         return ResponseEntity.status(status).body(err);

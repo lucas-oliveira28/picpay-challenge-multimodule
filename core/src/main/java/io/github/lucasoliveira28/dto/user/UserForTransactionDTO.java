@@ -10,26 +10,14 @@ import java.util.UUID;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @Data
-public class UserResponseDTO {
+@Builder
+public class UserForTransactionDTO {
 
     @JsonProperty("id")
     private UUID id;
 
     @JsonProperty("fullName")
     private String fullName;
-
-    @JsonProperty("cpf")
-    private String cpf;
-
-    @JsonProperty("email")
-    private String email;
-
-    @JsonProperty("userType")
-    private String userType;
-
-    @JsonProperty("balance")
-    private Double balance;
 
 }

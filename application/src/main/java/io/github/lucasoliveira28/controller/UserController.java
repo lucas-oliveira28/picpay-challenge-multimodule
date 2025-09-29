@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
@@ -27,15 +29,15 @@ public class UserController {
     }
 
     @GetMapping("/user/{id}")
-    public ResponseEntity<UserResponseDTO> getUserById(@PathVariable("id") Long userId) {
-        var userDTO = userCommand.getUserById(userId);
+    public ResponseEntity<UserResponseDTO> getUserById(@PathVariable("id") String userId) {
+        var userDTO = userCommand.getUserById(UUID.fromString(userId));
         var userResponseDTO = userDTOMapper.toUserResponseDTO(userDTO);
         return ResponseEntity.ok(userResponseDTO);
     }
 
     @DeleteMapping("/user/{id}")
-    public ResponseEntity<UserResponseDTO> deleteUserById(@PathVariable("id") Long userId) {
-        var userDTO = userCommand.deleteUserById(userId);
+    public ResponseEntity<UserResponseDTO> deleteUserById(@PathVariable("id") String userId) {
+        var userDTO = userCommand.deleteUserById(UUID.fromString(userId));
         var userResponseDTO = userDTOMapper.toUserResponseDTO(userDTO);
         return ResponseEntity.ok(userResponseDTO);
     }

@@ -7,7 +7,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -17,24 +16,24 @@ import java.util.UUID;
 public class UserDTO {
 
     @JsonProperty("id")
-    UUID id;
+    private UUID id;
 
     @JsonProperty("fullName")
-    String fullName;
+    private String fullName;
 
     @JsonProperty("cpf")
-    String cpf;
+    private String cpf;
 
     @JsonProperty("email")
-    String email;
+    private String email;
 
     @JsonProperty("password")
-    String password;
+    private String password;
 
     @JsonProperty("userType")
-    UserType userType;
+    private UserType userType;
 
     @JsonProperty("balance")
-    BigDecimal balance;
+    private Double balance;
 
 }

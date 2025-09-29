@@ -10,7 +10,9 @@ import io.github.lucasoliveira28.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -22,14 +24,14 @@ public class UserFlow implements UserCommand {
     @Override
     public UserDTO createUser(UserDTO userDTO) {
         if (userRepository.existsByCpf(userDTO.getCpf()) || userRepository.existsByEmail(userDTO.getEmail())) {
-            throw new UserBadRequestException("CPF or Email already exists");
+            throw new UserBadRequestException("cpf e/ou email já estão cadastrados");
         }
         var user = userRepository.save(buildUser(userDTO));
         return userMapper.toUserDTO(user);
     }
 
     @Override
-    public UserDTO deleteUserById(Long userId) {
+    public UserDTO deleteUserById(UUID userId) {
         Optional<User> optionalUser = userRepository.findById(userId);
         if (optionalUser.isPresent()) {
             userRepository.deleteById(userId);
@@ -40,7 +42,7 @@ public class UserFlow implements UserCommand {
     }
 
     @Override
-    public UserDTO getUserById(Long userId) {
+    public UserDTO getUserById(UUID userId) {
         Optional<User> optionalUser = userRepository.findById(userId);
         if (optionalUser.isPresent()) {
             return userMapper.toUserDTO(optionalUser.get());
@@ -56,7 +58,7 @@ public class UserFlow implements UserCommand {
                 .email(userDTO.getEmail())
                 .password(userDTO.getPassword())
                 .userType(userDTO.getUserType())
-                .balance(userDTO.getBalance())
+                .balance(BigDecimal.valueOf(userDTO.getBalance()))
                 .build();
     }
 }

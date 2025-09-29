@@ -3,6 +3,7 @@ package io.github.lucasoliveira28.dto.user;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,26 +17,30 @@ import org.hibernate.validator.constraints.br.CPF;
 @Data
 public class UserRequestDTO {
 
-    @NotBlank(message = "Nome completo deve ser preenchido")
+    @NotBlank(message = "fullName deve ser preenchido")
     @Length(min = 10)
     @JsonProperty("fullName")
-    String fullName;
+    private String fullName;
 
-    @CPF(message = "CPF inválido")
+    @CPF(message = "cpf inválido")
     @JsonProperty("cpf")
-    String cpf;
+    private String cpf;
 
-    @Email(message = "Email inválido")
+    @Email(message = "email inválido")
     @JsonProperty("email")
-    String email;
+    private String email;
 
-    @NotBlank(message = "Senha deve ser preenchida")
+    @NotBlank(message = "password deve ser preenchida")
     @Length(min = 6)
     @JsonProperty("password")
-    String password;
+    private String password;
 
-    @NotBlank(message = "Tipo da conta deve ser preenchido")
+    @NotBlank(message = "userType deve ser preenchido")
     @JsonProperty("userType")
-    String userType;
+    private String userType;
+
+    @NotNull(message = "balance não pode ser nulo")
+    @JsonProperty("balance")
+    private Double balance;
 
 }
